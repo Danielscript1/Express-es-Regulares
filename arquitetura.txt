@@ -1,0 +1,95 @@
+							------começando com Regex---------------
+
+anotações 1: classes e Quantifier
+
+{n} - extamente n vezes
+{n,} - no minimo n vezes
+{n,m} - no minimo n+1 vezes , no maximo m vezes
+
+\d{2}h\d{2}min\d{2}s -> formataçoes de horario
+s -> referente a espaçamentos
+\s - espaços atalhos [ \t\r\n\f] ->exemplo de combinação \s+ referente um ou mais whitespaces
+\w - wordChar recupera todos os caracteres alpha numericos, ou seja, letras e números, mas não acentos ou caracteres especiais. É o equivalente a [a-zA-Z_0-9]
+[123] - 1,2 ou 3
+[A-Z] - letras de A ate Z
+
+Para você fazer uma negação da Classe criada,
+basta adicionar um ^ dentro da classe. Por exemplo,
+você quer pegar todas as combinações que não sejam formadas pela sequência es: [^es], obs para ser uma negação tem que esta dentro do colchets 
+
++ -> significa que tem um ou mais elementos
+[-.] definir pode ter um infe ou ponto o colchete  esse delimitador [], o colchetes pode ser defimido para crira minha expressao regular
+? opcional pode ter um ou zero -> exemplo de uso \d{3}?
+. o "ponto" que significa qualquer char
+* o asterisco que serve para definir uma quantidade de chars, zero ou mais vezes
+{e } as chaves que servem para definir uma quantidade de caracteres específicas que é desejado encontrar
+Por exemplo:
+
+a{3} letra a 3 vezes.
+\d* um digito zero ou mais vezes
+Lembrando também, se quisermos procurar pelo * ou . literalmente (sem significado especial), devemos utilizar o caractere \
+
+Dica: Os parênteses são meta-chars e precisam ser utilizados para capturar o valor literal: \(e \)
+
+ -   -> o sinal do traço e lido passando normal pelo identificador
+	exemplo abaixo:  \(\d{2}\) \d{4}-\d{4}, o sinal do traço e lido na formula normal
+
+
+Obs:
+No entanto, é importante lembrar que uma expressão regular faz a análise de um determinado padrão de caracteres em uma string.
+Podemos usar esse padrão para por exemplo validar um email ou telefone.
+Para saber se o email realmente existe e validar a autenticidade do email uma regex não serve.
+
+expressão regular de validacao de email
+
+ //Regular Expression   
+        String regx = "^[A-Za-z0-9+_.-]+@(.+)$";  
+
+anotacoes 2 :  encontrando a posição certa com Ancoras -> definicao e uma forma de encontrar uma posição dentro do meu texto
+
+\b - word boundary , se voce quiser procurar limites de palavras
+exemplo -> \bde\b -> vai achar a palavra "de", O LIMITADOR \B SELECIONAR O LIMITE DA PALAVRA DESEJADA
+OBS : NÃO PODE SER UM WORD CHAR[A-Za-z0-9_] , para usar esse delimitador não pode seguir um wordcahr 
+exemplo de um wordChar ->que ele não se aplicar o delimitador
+
+Zde -> ele não vai encontrar pois aparecer um wordChar junto
+
+
+----------Ancoras de inicio e fim -----------------
+
+
+^ - para fazer referecia que uma palavra precisar aparecer no inicio
+$ - fazer referencia que uma palavra ou caractere tem que aparecer no final usamos esse simbolo
+
+exemplo de uma expressao 
+
+^file.+\.html$
+
+
+
+----trabalhando com grupos --------
+
+
+() - paranteses serve para criar grupos
+ex: 	([12]\d{3})
+
+
+(?:) - significa que não vai selecionar esse grupo formado
+exemplo de uso -> (:?de\s+)
+
+
+-------Ganancioso ou preguiçoso---------------
+? - interrogação dentro da expressão pode ter varias significados
+exemplo : <h1.+?> -> exeplo do texto sendo aplicado essa expressão 
+<h1 class="id"></h1> ,ele selecionar ate esse metade aqui <h1 class="id"> ,pois não torna ganancioso
+ | -> o simbolo piperline significa ou , obs tem que esta dentro de um grupo
+ex: <(h1|h2)> -> pode vir h1 ou h2
+
+---referenciando grupo com expressão--- conhecido como backReferences
+<(h1|h2)></\1> -> vai pegar o primeiro  grupo, obs : agente definiu um grupo antes e agora estamos nos referindo a esse grupo
+
+
+-------------obs-----------
+o java usar duas barras nos digitos , exemplo
+
+(//d{3})
